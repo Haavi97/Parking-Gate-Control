@@ -2,7 +2,7 @@
  * File:        Parking_Gate_ESP_01.ino
  * Author:      Francisco Javier Ortín Cervera
  * Created:     15.12.2020
- * Last edit:   02.01.2021
+ * Last edit:   03.01.2021
  * 
  * Part of this code has been taken from:
  *  https://RandomNerdTutorials.com/
@@ -75,7 +75,7 @@ border-radius: 10px; padding: 10px; font-size: 10px;
   <h2>Parking gate</h2>
   <p>Parking gate virtual key: </p>
   <button onclick="switchButton()" class="button button1">Switch</button>
-  <p><br>Parking gate virtual key used: <span id="korda">%KORDA%</span> times<br><br></p>
+  <p><br>Parking gate virtual key used: <span id="times">%TIMES%</span> times<br><br></p>
   <button onclick="logoutButton()" class="button button2">Logout</button>
 <script>
 var counter = 0;
@@ -96,67 +96,6 @@ function logoutButton() {
 </html>
 )rawliteral";
 
-const char english_html[] PROGMEM = R"rawliteral(
-<!DOCTYPE HTML><html>
-<head>
-  <title>Parking gate</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <style>
-    html {font-family: Arial; display: inline-block; text-align: center;}
-    h2 {font-size: 2.6rem;}
-    body {max-width: 600px; margin:0px auto; padding-bottom: 10px;}
-    .button {
-          background-color: #195B6A;
-          border: none;
-          color: white;
-          text-align: center;
-          text-decoration: none;
-          display: inline-block;
-          margin: 4px 2px;
-        }
-.bottomleft {
-  position: absolute;
-  bottom: 8px;
-  left: 16px;
-  font-size: 18px;
-border-radius: 10px; padding: 10px; font-size: 10px;
-}
-    .button1 {border-radius: 12px; padding: 20px; font-size: 16px;}
-    .button2 {border-radius: 12px; padding: 10px; font-size: 12px;}
-  </style>
-</head>
-<body>
-  <h2>Parking gate</h2>
-  <p>Parking gate virtual key: </p>
-  <button onclick="switchButton()" class="button button1">Switch</button>
-  <p><br>Parking gate virtual key used: <span id="korda">%KORDA%</span> times<br><br></p>
-  <button onclick="logoutButton()" class="button button2">Logout</button>
-<script>
-var counter = 0;
-
-function switchButton() {
-  var xhr = new XMLHttpRequest();
-  xhr.open("GET", "/lyliti", true); 
-  xhr.send();
-}
-function logoutButton() {
-  var xhr = new XMLHttpRequest();
-  xhr.open("GET", "/logout", true);
-  xhr.send();
-  setTimeout(function(){ window.open("/logged-out","_self"); }, 1000);
-}
-function englishButton() {
-  var xhr = new XMLHttpRequest();
-  xhr.open("GET", "/inglise", true);
-  xhr.send();
-  setTimeout(function(){ window.open("/english","_self"); }, 1000);
-}
-</script>
-</body>
-</html>
-)rawliteral";
-
-
 const char logout_html[] PROGMEM = R"rawliteral(
 <!DOCTYPE HTML><html>
 <head>
@@ -174,7 +113,7 @@ String processor(const String& var){
   Serial.print("Var: ");
   Serial.println(var);
   
-  if (var == "KORDA"){
+  if (var == "TIMES"){
     Serial.print("Counter: ");
     Serial.println(counter);
     return String(counter);
@@ -232,7 +171,6 @@ void setup(){
   // Start server
   Serial.println("Starting server...");
   server.begin();
-  Serial.println("Server started");
 }
   
 void loop() {
