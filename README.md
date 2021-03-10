@@ -7,7 +7,7 @@
 - Relay module
 - Power converter (2x)
 - Capacitors 100μF (2x)
-- Female 
+- Female 2.5mm power socket or whatever power input. Later is converted.
 
 ## Software
 Programmed used Arduino IDE.
